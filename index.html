@@ -12,6 +12,21 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
+    	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script> -->
+   <!--  	  <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/lodash.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/jszip.min.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/excel-builder.dist.js"></script>
+    <script src="http://ui-grid.info/release/ui-grid.js"></script>
+    <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
+        <script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>
+    	<script src="assets/node_modules/angular-ui-grid/ui-grid.js"></script>
+    	<script src="assets/node_modules/angular-ui-grid/ui-grid.css"></script>
+    --> 	
   		<link rel="stylesheet" href="/resources/demos/style.css">
   		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -23,7 +38,8 @@
         <link rel="stylesheet" type="text/css" href="assets/css/daterangepicker.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	<body class="homepage">
+
+	<body class="homepage" >
 		<div id="page-wrapper">
 
 			<!-- Header -->
@@ -32,7 +48,6 @@
 						<div class="inner">
 							<header>
 								<h1>GoFlyNow</h1>
-					
 								<!-- <p>Another fine freebie by HTML5 UP</p> -->
 								<br></br>
 							<div class="row">
@@ -42,7 +57,7 @@
 							      	<div class="card-block" style="background-color:black;">
 							        <!-- <h3 class="card-title">From</h3> -->
 							        <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
-							        <div class="sourceTxtBox" style= "padding-left: 10px; padding-bottom: 10px; padding-right: 10px">
+							        <div class="sourceTxtBox" style= "padding-top: 10px; padding-left: 10px; padding-bottom: 10px; padding-right: 10px">
 							        	<input class="form-control" id="from" type="text" placeholder="Source..." >
 							        </div>
 							      </div>
@@ -53,21 +68,49 @@
 							     	<img class="mx-auto d-block" src="images/arrivals.svg" alt="Card image cap" style="width:100px;height:100px;">
 							      	<div class="card-block" style="background-color:black;">
 							        <!-- <h3 class="card-title">To</h3> -->
-									<div class="destTxtBox" style= "padding-left: 10px; padding-bottom: 10px; padding-right: 10px">
+									<div class="destTxtBox" style= "padding-top: 10px; padding-left: 10px; padding-bottom: 10px; padding-right: 10px">
 										<input class="form-control" id="to" type="text" placeholder="Destination...">
 									</div>
 							      </div>
 							    </div>
 							  </div>
 							</div>
-							<br></br>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="daterange" placeholder="Select value">
-                            </div>
-							</header>
+								<div class="form-group" style= "padding-top: 20px">
+                                	<input type="text" class="form-control" id="daterange" placeholder="Select Dates" >
+                            	</div>
+							  </header>
 							<footer>
+						      <div ng-app="mainApp" ng-controller="MainController">
+      							<table class="table table-hover" id = "table">
+									<thead>
+								        <th>Flight No.
+								  			<span class="glyphicon sort-icon" ng-show="sortKey=='company'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								  			</th>
+								        <th ng-click="sort('fname')">Airlines
+								  			<span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								  			</th>
+								        <th>Time
+								  			<span class="glyphicon sort-icon" ng-show="sortKey=='lastName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								  			</th>
+								        <th>Type
+								        <span class="glyphicon sort-icon" ng-show="sortKey=='employed'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+								        </th>
+								        
+								    </thead> 
+								    <!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
+							        <tr ng-repeat="x in details">
+							                  <td>{{ x.company}}</td>
+							                  <td>{{ x.firstName }}</td>
+							                  <td>{{ x.lastName }}</td>
+							                  <td>{{ x.employed }}</td>
+							                  
+							          </tr>   
+								</table>
+								</div>
 								<a href="#banner" class="button circled scrolly">Start</a>
+							
 							</footer>
+							
 						</div>
 
 					<!-- Nav -->
@@ -423,9 +466,10 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
 			<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="assets/js/moment.min.js"></script>
-        <script type="text/javascript" src="assets/js/daterangepicker.js"></script>
-        <script type="text/javascript" src="assets/js/demo.js"></script
+        	<script type="text/javascript" src="assets/js/moment.min.js"></script>
+        	<script type="text/javascript" src="assets/js/daterangepicker.js"></script>
+        	<script type="text/javascript" src="assets/js/demo.js"></script>
+        	<script src="app.js"></script>
 
 	</body>
 </html>
