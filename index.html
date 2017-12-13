@@ -59,7 +59,23 @@
 						</div>
 					</header>
 					<footer>
-						<div ng-app="mainApp" ng-controller="MainController">
+						
+						<a href="#results" class="button circled scrolly">Start</a>
+						
+					</footer>
+					
+				</div>
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="left-sidebar.html">Statistics</a></li>
+						<li><a href="right-sidebar.html">Delay Data</a></li>
+						<li><a href="no-sidebar.html">Admin</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div id= "results" ng-app="mainApp" ng-controller="MainController" style = "width: 600px; margin: 0 auto;">
 							<table class="table table-hover" id = "table">
 								<thead>
 									<th>Flight No.
@@ -86,21 +102,9 @@
 								</tr>
 							</table>
 						</div>
-						<a href="#banner" class="button circled scrolly">Start</a>
-						
-					</footer>
-					
-				</div>
-				<!-- Nav -->
-				<nav id="nav">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-						<li><a href="left-sidebar.html">Statistics</a></li>
-						<li><a href="right-sidebar.html">Delay Data</a></li>
-						<li><a href="no-sidebar.html">Admin</a></li>
-					</ul>
-				</nav>
-			</div>
+
+
+
 			<!-- Banner -->
 			<section id="banner">
 				<header>
@@ -161,4 +165,3 @@
 		<script src="app.js"></script>
 	</body>
 </html>
->>>>>>> 96d21c3cc4db6079be4d45d34babf42a519eb6ea
