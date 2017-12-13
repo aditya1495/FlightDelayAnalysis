@@ -1,30 +1,21 @@
 var app = angular.module('mainApp', []);
-app.controller('MainController', function($scope) {
+app.controller('MainController', function($scope, $http) {
     $scope.firstName= "John";
     $scope.lastName= "Doe";
 
-  $scope.myData = [
-    {
-        "firstName": "Cox",
-        "lastName": "Carney",
-        "company": "Enormo",
-        "employed": true
-    },
-    {
-        "firstName": "Lorraine",
-        "lastName": "Wise",
-        "company": "Comveyer",
-        "employed": false
-    },
-    {
-        "firstName": "Nancy",
-        "lastName": "Waters",
-        "company": "Fuelton",
-        "employed": false
-    }
-];
-    console.log($scope.myData);
-    $scope.details = angular.fromJson($scope.myData);
-    console.log($scope.details);
+    $scope.myData = null;
+    $scope.details = null;
+    $scope.source = null;
+    $scope.destination = null;
+    console.log("Teally??");
 
+    $scope.fetchData = function() {
+        var url = "http://127.0.0.1:7799/flightFetch?origin=" + $scope.source + "&destination=" + $scope.destination;
+        $http.get(url).then(function(response){
+            console.log(response.data);
+            $scope.myData = response.data.FindFlightResult.flights;
+            console.log($scope.myData);
+            $scope.details = angular.fromJson($scope.myData);
+        });
+    }
 });

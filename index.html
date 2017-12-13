@@ -6,9 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css">
+		<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -19,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/daterangepicker.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
-	<body class="homepage" >
+	<body class="homepage" ng-app="mainApp" ng-controller="MainController">
 		<div id="page-wrapper">
 			<!-- Header -->
 			<div id="header">
@@ -34,10 +34,8 @@
 								<div class="card">
 									<img class="mx-auto d-block" src="images/departures.svg" alt="Card image cap" style="width:100px;height:100px;">
 									<div class="card-block" style="background-color:black;">
-										<!-- <h3 class="card-title">From</h3> -->
-										<!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
 										<div class="sourceTxtBox" style= "padding-top: 10px; padding-left: 10px; padding-bottom: 10px; padding-right: 10px">
-											<input class="form-control" id="from" type="text" placeholder="Source..." >
+											<input class="form-control" id="from" type="text" placeholder="Source..." ng-model="source">
 										</div>
 									</div>
 								</div>
@@ -48,24 +46,24 @@
 									<div class="card-block" style="background-color:black;">
 										<!-- <h3 class="card-title">To</h3> -->
 										<div class="destTxtBox" style= "padding-top: 10px; padding-left: 10px; padding-bottom: 10px; padding-right: 10px">
-											<input class="form-control" id="to" type="text" placeholder="Destination...">
+											<input class="form-control" id="to" type="text" placeholder="Destination..." ng-model="destination">
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-<!-- 						<div class="form-group" style= "padding-top: 20px">
-							<input type="text" class="form-control" id="daterange" placeholder="Select Dates" >
+						<!-- 						<div class="form-group" style= "padding-top: 20px">
+								<input type="text" class="form-control" id="daterange" placeholder="Select Dates" >
 						</div> -->
 						<div flex-gt-xs="">
-				      	<h4>Opening the calendar when the input is focused</h4>
-				      	<input [matDatepicker]="myDatepicker">
+							<h4>Opening the calendar when the input is focused</h4>
+							<input [matDatepicker]="myDatepicker">
 							<mat-datepicker #myDatepicker></mat-datepicker>
-							</div>
+						</div>
 					</header>
 					<footer>
 						
-						<a href="#results" class="button circled scrolly">Start</a>
+						<a ng-href="#results" class="button circled scrolly" ng-click="fetchData()">Start</a>
 						
 					</footer>
 					
@@ -80,36 +78,33 @@
 					</ul>
 				</nav>
 			</div>
-			<div id= "results" ng-app="mainApp" ng-controller="MainController" style = "width: 600px; margin: 0 auto;">
-							<table class="table table-hover" id = "table">
-								<thead>
-									<th>Flight No.
-										<span class="glyphicon sort-icon" ng-show="sortKey=='company'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									<th ng-click="sort('fname')">Airlines
-										<span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									<th>Time
-										<span class="glyphicon sort-icon" ng-show="sortKey=='lastName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									<th>Type
-										<span class="glyphicon sort-icon" ng-show="sortKey=='employed'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-									</th>
-									
-								</thead>
-								<!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
-								<tr ng-repeat="x in details">
-									<td>{{ x.company}}</td>
-									<td>{{ x.firstName }}</td>
-									<td>{{ x.lastName }}</td>
-									<td>{{ x.employed }}</td>
-									
-								</tr>
-							</table>
-						</div>
-
-
-
+			<div id= "results" style = "width: 600px; margin: 0 auto;">
+				<table class="table table-hover" id = "table">
+					<thead>
+						<th>Flight No.
+							<span class="glyphicon sort-icon" ng-show="sortKey=='company'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th ng-click="sort('fname')">Airlines
+							<span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th>Time
+							<span class="glyphicon sort-icon" ng-show="sortKey=='lastName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						<th>Type
+							<span class="glyphicon sort-icon" ng-show="sortKey=='employed'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+						</th>
+						
+					</thead>
+					<!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
+					<tr ng-repeat="x in details">
+						<td>{{ x.company}}</td>
+						<td>{{ x.firstName }}</td>
+						<td>{{ x.lastName }}</td>
+						<td>{{ x.employed }}</td>
+						
+					</tr>
+				</table>
+			</div>
 			<!-- Banner -->
 			<section id="banner">
 				<header>
