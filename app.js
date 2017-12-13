@@ -3,19 +3,215 @@ app.controller('MainController', function($scope, $http) {
     $scope.firstName= "John";
     $scope.lastName= "Doe";
 
-    $scope.myData = null;
-    $scope.details = null;
-    $scope.source = null;
-    $scope.destination = null;
-    console.log("Teally??");
+    $scope.myData = [{
+  "FindFlightResult": {
+    "num_flights": 3,
+    "flights": [
+      {
+        "num_segments": 1,
+        "segments": [
+          {
+            "ident": "UAL82",
+            "faFlightID": "UAL82-1512973542-airline-0360",
+            "airline": "UAL",
+            "flightnumber": "82",
+            "type": "Form_Airline",
+            "blocked": false,
+            "diverted": false,
+            "cancelled": false,
+            "origin": {
+              "code": "KEWR",
+              "city": "Newark, NJ",
+              "alternate_ident": "",
+              "airport_name": "Newark Liberty Intl"
+            },
+            "destination": {
+              "code": "VIDP",
+              "city": "New Delhi",
+              "alternate_ident": "DEL",
+              "airport_name": "Indira Gandhi Int'l"
+            },
+            "filed_ete": 48300,
+            "filed_departure_time": {
+              "epoch": 1513216800,
+              "tz": "EST",
+              "dow": "Wednesday",
+              "time": "09:00PM",
+              "date": "12/13/2017",
+              "localtime": 1513198800
+            },
+            "estimated_departure_time": {
+              "epoch": 0
+            },
+            "actual_departure_time": {
+              "epoch": 0
+            },
+            "departure_delay": 0,
+            "filed_arrival_time": {
+              "epoch": 0
+            },
+            "estimated_arrival_time": {
+              "epoch": 1513266480,
+              "tz": "IST",
+              "dow": "Thursday",
+              "time": "09:18PM",
+              "date": "12/14/2017",
+              "localtime": 1513286280
+            },
+            "actual_arrival_time": {
+              "epoch": 0
+            },
+            "arrival_delay": 0,
+            "status": "Scheduled",
+            "progress_percent": -1,
+            "aircrafttype": "B772",
+            "full_aircrafttype": "B772",
+            "adhoc": false
+          }
+        ]
+      },
+      {
+        "num_segments": 1,
+        "segments": [
+          {
+            "ident": "AIC102",
+            "faFlightID": "AIC102-1512973533-airline-0123",
+            "airline": "AIC",
+            "flightnumber": "102",
+            "type": "Form_Airline",
+            "blocked": false,
+            "diverted": false,
+            "cancelled": false,
+            "origin": {
+              "code": "KJFK",
+              "city": "New York, NY",
+              "alternate_ident": "",
+              "airport_name": "John F Kennedy Intl"
+            },
+            "destination": {
+              "code": "VIDP",
+              "city": "New Delhi",
+              "alternate_ident": "DEL",
+              "airport_name": "Indira Gandhi Int'l"
+            },
+            "filed_ete": 48900,
+            "filed_departure_time": {
+              "epoch": 1513193100,
+              "tz": "EST",
+              "dow": "Wednesday",
+              "time": "02:25PM",
+              "date": "12/13/2017",
+              "localtime": 1513175100
+            },
+            "estimated_departure_time": {
+              "epoch": 0
+            },
+            "actual_departure_time": {
+              "epoch": 0
+            },
+            "departure_delay": 14400,
+            "filed_arrival_time": {
+              "epoch": 0
+            },
+            "estimated_arrival_time": {
+              "epoch": 1513259100,
+              "tz": "IST",
+              "dow": "Thursday",
+              "time": "07:15PM",
+              "date": "12/14/2017",
+              "localtime": 1513278900
+            },
+            "actual_arrival_time": {
+              "epoch": 0
+            },
+            "status": "Scheduled / Delayed",
+            "progress_percent": -1,
+            "aircrafttype": "B77W",
+            "full_aircrafttype": "B77W",
+            "adhoc": false
+          }
+        ]
+      },
+      {
+        "num_segments": 1,
+        "segments": [
+          {
+            "ident": "AI102D",
+            "faFlightID": "AI102D-1513159918-airline-0067",
+            "type": "General_Aviation",
+            "blocked": false,
+            "diverted": false,
+            "cancelled": false,
+            "origin": {
+              "code": "KJFK",
+              "city": "New York, NY",
+              "alternate_ident": "",
+              "airport_name": "John F Kennedy Intl"
+            },
+            "destination": {
+              "code": "VIDP",
+              "city": "New Delhi",
+              "alternate_ident": "DEL",
+              "airport_name": "Indira Gandhi Int'l"
+            },
+            "filed_ete": 48900,
+            "filed_departure_time": {
+              "epoch": 1513186200,
+              "tz": "EST",
+              "dow": "Wednesday",
+              "time": "12:30PM",
+              "date": "12/13/2017",
+              "localtime": 1513168200
+            },
+            "estimated_departure_time": {
+              "epoch": 0
+            },
+            "actual_departure_time": {
+              "epoch": 0
+            },
+            "departure_delay": 3600,
+            "filed_arrival_time": {
+              "epoch": 0
+            },
+            "estimated_arrival_time": {
+              "epoch": 1513239300,
+              "tz": "IST",
+              "dow": "Thursday",
+              "time": "01:45PM",
+              "date": "12/14/2017",
+              "localtime": 1513259100
+            },
+            "actual_arrival_time": {
+              "epoch": 0
+            },
+            "status": "Scheduled / Delayed",
+            "progress_percent": -1,
+            "aircrafttype": "B77W",
+            "full_aircrafttype": "B77W",
+            "adhoc": false
+          }
+        ]
+      }
+    ],
+    "next_offset": -1
+  }
+}];
+    $scope.details = angular.fromJson($scope.myData);
+    $scope.flightData = $scope.details[0].FindFlightResult.flights;
+     console.log($scope.flightData); 
+    // console.log($scope.flightData[0].origin.airport_name);
+    // console.log($scope.flightData[0].destination.airport_name);
+    // console.log($scope.flightData[0].filed_departure_time.date + " "+ $scope.flightData[0].filed_departure_time.dow +" "+ $scope.flightData[0].filed_departure_time.time+$scope.flightData[0].filed_departure_time.tz);
 
-    $scope.fetchData = function() {
-        var url = "http://127.0.0.1:7799/flightFetch?origin=" + $scope.source + "&destination=" + $scope.destination;
-        $http.get(url).then(function(response){
-            console.log(response.data);
-            $scope.myData = response.data.FindFlightResult.flights;
-            console.log($scope.myData);
-            $scope.details = angular.fromJson($scope.myData);
-        });
-    }
+    // console.log($scope.flightData[0].estimated_arrival_time.date + " "+ $scope.flightData[0].estimated_arrival_time.dow +" "+ $scope.flightData[0].estimated_arrival_time.time+$scope.flightData[0].estimated_arrival_time.tz);
+
+    // $scope.fetchData = function() {
+    //     var url = "http://127.0.0.1:7799/flightFetch?origin=" + $scope.source + "&destination=" + $scope.destination;
+    //     $http.get(url).then(function(response){
+    //         console.log(response.data);
+    //         $scope.myData = response.data.FindFlightResult.flights;
+    //         console.log($scope.myData);
+    //         $scope.details = angular.fromJson($scope.myData);
+    //     });
+    // }
 });

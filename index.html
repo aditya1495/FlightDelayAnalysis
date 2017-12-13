@@ -78,30 +78,29 @@
 					</ul>
 				</nav>
 			</div>
-			<div id= "results" style = "width: 600px; margin: 0 auto;">
-				<table class="table table-hover" id = "table">
-					<thead>
-						<th>Flight No.
-							<span class="glyphicon sort-icon" ng-show="sortKey=='company'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-						</th>
-						<th ng-click="sort('fname')">Airlines
-							<span class="glyphicon sort-icon" ng-show="sortKey=='firstName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-						</th>
-						<th>Time
-							<span class="glyphicon sort-icon" ng-show="sortKey=='lastName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-						</th>
-						<th>Type
-							<span class="glyphicon sort-icon" ng-show="sortKey=='employed'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
-						</th>
+			<div id= "results" style = "width: 100%; margin: 0 auto;">
+				<table class="table table-striped" id = "table">
+					<thead class="text-center" >
+						<th class="font-weight-bold" style= "vertical-align: middle;">Airlines</th>
+						<th class="font-weight-bold" style= "vertical-align: middle;">Source Airport</th>
+						<th class="font-weight-bold" style= "vertical-align: middle;">Destination Airport</th>
+						<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Departure Time</th>
+						<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Arrival Time</th>
+						<th class="font-weight-bold" style= "vertical-align: middle;"> Status</th>
+						<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Departure Delay(hrs)</th>
+						<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Arrival Delay (hrs) </th>
 						
 					</thead>
 					<!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
-					<tr ng-repeat="x in details">
-						<td>{{ x.company}}</td>
-						<td>{{ x.firstName }}</td>
-						<td>{{ x.lastName }}</td>
-						<td>{{ x.employed }}</td>
-						
+					<tr ng-repeat="x in flightData">
+						<td>{{ x.segments[0].airline }}</td>
+						<td>{{ x.segments[0].origin.airport_name }}</td>
+						<td>{{ x.segments[0].destination.airport_name }}</td>
+						<td>{{ x.segments[0].filed_departure_time.date +" "+ x.segments[0].filed_departure_time.dow +" "+x.segments[0].filed_departure_time.time+" "+ x.segments[0].filed_departure_time.tz }}</td>
+						<td>{{ x.segments[0].estimated_arrival_time.date+" "+ x.segments[0].estimated_arrival_time.dow +" "+ x.segments[0].estimated_arrival_time.time+" "+ x.segments[0].estimated_arrival_time.tz }}</td>
+						<td>{{ x.segments[0].status }}</td>
+						<td>{{ x.segments[0].departure_delay/3600 }}</td>
+						<td> {{ x.segments[0].arrival_delay/3600 }} </td>
 					</tr>
 				</table>
 			</div>
