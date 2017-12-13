@@ -10,9 +10,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 		<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		
+		<link rel="stylesheet" type="text/css" href="assets/css/flightpath.css" />
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
+		<script src="flightpath.js"></script>
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -65,7 +67,7 @@
 					</header>
 					<footer>
 						
-						<a ng-href="#results" class="button circled scrolly" ng-click="fetchData()">Start</a>
+						<a ng-href="#mapCanvas" class="button circled scrolly" ng-click="go();">Start</a>
 						
 					</footer>
 					
@@ -80,34 +82,41 @@
 					</ul>
 				</nav>
 			</div>
-			<div id= "results" style = "width: 100%; margin: 0 auto;">
-				<table class="table table-striped" id = "table">
-					<thead class="text-center" >
-						<th class="font-weight-bold" style= "vertical-align: middle;">Airlines</th>
-						<th class="font-weight-bold" style= "vertical-align: middle;">Source Airport</th>
-						<th class="font-weight-bold" style= "vertical-align: middle;">Destination Airport</th>
-						<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Departure Time</th>
-						<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Arrival Time</th>
-						<th class="font-weight-bold" style= "vertical-align: middle;"> Status</th>
-						<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Departure Delay(hrs)</th>
-						<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Arrival Delay (hrs) </th>
+			<div style="overflow: auto;" id="mapCanvas" class="map" ></div>
+			<div>
+
+				<div id= "results" style = "width: 100%; margin: 0 auto;">
+					<table class="table table-striped" id = "table">
+						<thead class="text-center" >
+							<th class="font-weight-bold" style= "vertical-align: middle;">Airlines</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;">Source Airport</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;">Destination Airport</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Departure Time</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Arrival Time</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Status</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Departure Delay(hrs)</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Arrival Delay (hrs) </th>
+							
+						</thead>
+						<!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
+						<tr ng-repeat="x in flightData" class="text-center">
+							<td>{{ x.segments[0].airline }}</td>
+							<td>{{ x.segments[0].origin.airport_name }}</td>
+							<td>{{ x.segments[0].destination.airport_name }}</td>
+							<td>{{ x.segments[0].filed_departure_time.date +" "+ x.segments[0].filed_departure_time.dow +" "+x.segments[0].filed_departure_time.time+" "+ x.segments[0].filed_departure_time.tz }}</td>
+							<td>{{ x.segments[0].estimated_arrival_time.date+" "+ x.segments[0].estimated_arrival_time.dow +" "+ x.segments[0].estimated_arrival_time.time+" "+ x.segments[0].estimated_arrival_time.tz }}</td>
+							<td>{{ x.segments[0].status }}</td>
+							<td>{{ x.segments[0].departure_delay/3600 }}</td>
+							<td> {{ x.segments[0].arrival_delay/3600 }} </td>
+						</tr>
+					</table>
+				</div>
 						
-					</thead>
-					<!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
-					<tr ng-repeat="x in flightData" class="text-center">
-						<td>{{ x.segments[0].airline }}</td>
-						<td>{{ x.segments[0].origin.airport_name }}</td>
-						<td>{{ x.segments[0].destination.airport_name }}</td>
-						<td>{{ x.segments[0].filed_departure_time.date +" "+ x.segments[0].filed_departure_time.dow +" "+x.segments[0].filed_departure_time.time+" "+ x.segments[0].filed_departure_time.tz }}</td>
-						<td>{{ x.segments[0].estimated_arrival_time.date+" "+ x.segments[0].estimated_arrival_time.dow +" "+ x.segments[0].estimated_arrival_time.time+" "+ x.segments[0].estimated_arrival_time.tz }}</td>
-						<td>{{ x.segments[0].status }}</td>
-						<td>{{ x.segments[0].departure_delay/3600 }}</td>
-						<td> {{ x.segments[0].arrival_delay/3600 }} </td>
-					</tr>
-				</table>
+
 			</div>
+
 			<!-- Carousel -->
-			<section class="carousel">
+			<!-- <section class="carousel">
 				<div class="reel">
 					<article>
 						<a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
@@ -118,7 +127,7 @@
 					</article>
 				</div>
 			</section>
-			<!-- Main -->
+			 --><!-- Main -->
 			<!-- <div class="wrapper style2">
 				<article id="main" class="container special">
 					<a href="#" class="image featured"><img src="images/pic06.jpg" alt="" /></a>
@@ -151,8 +160,11 @@
 		<script src="assets/js/main.js"></script>
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="assets/js/moment.min.js"></script>
+		
 		<!-- <script type="text/javascript" src="assets/js/daterangepicker.js"></script> -->
 		<!-- <script type="text/javascript" src="assets/js/demo.js"></script> -->
 		<script src="app.js"></script>
+		<script type="text/javascript">loadMap();</script>
+
 	</body>
 </html>
