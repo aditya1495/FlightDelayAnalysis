@@ -26,7 +26,7 @@
 				<!-- Inner -->
 				<div class="inner">
 					<header>
-						<h1>GoFlyNow</h1>
+						<h1 style= "text-shadow: 2px 2px 0px #000000;">GoFlyNow</h1>
 						<!-- <p>Another fine freebie by HTML5 UP</p> -->
 						<br></br>
 						<div class="row">
@@ -54,9 +54,14 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group" style= "padding-top: 20px">
+<!-- 						<div class="form-group" style= "padding-top: 20px">
 							<input type="text" class="form-control" id="daterange" placeholder="Select Dates" >
-						</div>
+						</div> -->
+						<div flex-gt-xs="">
+				      	<h4>Opening the calendar when the input is focused</h4>
+				      	<input [matDatepicker]="myDatepicker">
+							<mat-datepicker #myDatepicker></mat-datepicker>
+							</div>
 					</header>
 					<footer>
 						
