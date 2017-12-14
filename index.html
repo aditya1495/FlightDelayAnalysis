@@ -18,6 +18,8 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+		<script src="http://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
 		<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 		<!-- <link rel="stylesheet" type="text/css" href="assets/css/daterangepicker.css" /> -->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
@@ -56,49 +58,53 @@
 							</div>
 						</div>
 						<br></br>
-						<a ng-href="#mapCanvas" class="button circled scrolly" onClick="go();" style= "outline: none;">Start</a>
+						<a ng-href="#mapCanvas" class="button circled scrolly" onClick="go();" ng-click="fetchData()" style= "outline: none;">Start</a>
 					</header>
 				</div>
 				<nav id="nav">
 					<ul>
+						<!-- <li style= "color: #000;"><img src="Columbia.svg.png" alt="Columbia University" style="width:30px;height:30px;"></li> -->
 						<li class="font-weight-bold" style= "color: #000;"><a href="index.html">Home</a></li>
 						<li class="font-weight-bold" style= "color: #000;"><a href="left-sidebar.html">Statistics</a></li>
 						<li class="font-weight-bold" style= "color: #000;"><a href="right-sidebar.html">Delay Data</a></li>
 						<li class="font-weight-bold" style= "color: #000;"><a href="no-sidebar.html">Admin</a></li>
 					</ul>
-				</nav>	
+				</nav>
 			</div>
 			<div style="overflow: auto;" id="mapCanvas" class="map" ></div>
 			<div>
-
 				<div id= "results" style = "width: 100%; margin: 0 auto;">
 					<table class="table table-striped" id = "table">
 						<thead class="text-center" >
-							<th class="font-weight-bold" style= "vertical-align: middle;">Airlines</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;">Flight ID</th>
 							<th class="font-weight-bold" style= "vertical-align: middle;">Source Airport</th>
 							<th class="font-weight-bold" style= "vertical-align: middle;">Destination Airport</th>
 							<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Departure Time</th>
 							<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Arrival Time</th>
 							<th class="font-weight-bold" style= "vertical-align: middle;"> Status</th>
-							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Departure Delay(hrs)</th>
-							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Arrival Delay (hrs) </th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Departure Delay(min)</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Arrival Delay (min) </th>
 							
 						</thead>
 						<!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
 						<tr ng-repeat="x in flightData" class="text-center">
-							<td>{{ x.segments[0].airline }}</td>
+							<td><a ng-href="#fin" ng-click="getFlightInfoStatus(x.segments[0].ident)">{{ x.segments[0].ident }}</a></td>
 							<td>{{ x.segments[0].origin.airport_name }}</td>
 							<td>{{ x.segments[0].destination.airport_name }}</td>
 							<td>{{ x.segments[0].filed_departure_time.date +" "+ x.segments[0].filed_departure_time.dow +" "+x.segments[0].filed_departure_time.time+" "+ x.segments[0].filed_departure_time.tz }}</td>
 							<td>{{ x.segments[0].estimated_arrival_time.date+" "+ x.segments[0].estimated_arrival_time.dow +" "+ x.segments[0].estimated_arrival_time.time+" "+ x.segments[0].estimated_arrival_time.tz }}</td>
 							<td>{{ x.segments[0].status }}</td>
-							<td>{{ x.segments[0].departure_delay/3600 }}</td>
-							<td> {{ x.segments[0].arrival_delay/3600 }} </td>
+							<td>{{ x.segments[0].departure_delay }}</td>
+							<td> {{ x.segments[0].arrival_delay }} </td>
 						</tr>
 					</table>
 				</div>
-						
-
+				<div id="analysis" ng-show="analyze" style="width:60%;height:60%;margin-left:30px">
+					<canvas id="line" class="chart chart-line" chart-data="delay_data"
+					chart-labels="labels" chart-series="series" chart-options="options"
+					chart-dataset-override="datasetOverride">
+					</canvas>
+				</div>
 			</div>
 			<div id="footer">
 
@@ -134,6 +140,7 @@
 				</div>
 			<!-- Footer -->
 		</div>
+		<div id="fin"></div>
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.dropotron.min.js"></script>
@@ -146,6 +153,5 @@
 		<script type="text/javascript" src="assets/js/moment.min.js"></script>
 		<script src="app.js"></script>
 		<script type="text/javascript">loadMap();</script>
-
 	</body>
 </html>
