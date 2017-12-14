@@ -1,21 +1,22 @@
 <!DOCTYPE HTML>
-<!--
-	Helios by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>GoFlyNow</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
+		
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 		<script src="http://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
 		<script src="chart_handler.js"></script>
+		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body class="left-sidebar" ng-app="chartApp" >
 		<div id="page-wrapper">
@@ -30,28 +31,67 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="font-weight-bold" style= "color: #000;"><a href="index.html">Home</a></li>
-						<li class="font-weight-bold" style= "color: #000;"><a href="left-sidebar.html">Statistics</a></li>
-						<li class="font-weight-bold" style= "color: #000;"><a href="right-sidebar.html">Delay Data</a></li>
-						<li class="font-weight-bold" style= "color: #000;"><a href="no-sidebar.html">Admin</a></li>
+						<li style= "color: #000;"><a href="index.html">Home</a></li>
+						<li style= "color: #000;"><a href="left-sidebar.html">Statistics</a></li>
+						<li style= "color: #000;"><a href="right-sidebar.html">Delay Data</a></li>
+						<li style= "color: #000;"><a href="no-sidebar.html">Admin</a></li>
 					</ul>
 				</nav>
 			</div>
-			<div ng-controller="BarCtrl" style="width:60%;height:60%;margin-left: 20px">
-				<canvas id="bar1" class="chart chart-bar"
-				chart-data="min_delay" chart-labels="labels" chart-series="series">
-				</canvas>
-			</div>
-			<div ng-controller="BarCtrl" style="width:60%;height:60%;margin-left: 20px">
-				<canvas id="bar2" class="chart chart-bar"
-				chart-data="max_delay" chart-labels="labels" chart-series="series">
-				</canvas>
-			</div>
-			<div ng-controller="LineCtrl">
+			<!-- <div ng-controller="LineCtrl">
 				<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
 				chart-dataset-override="datasetOverride" chart-click="onClick">
 				</canvas>
 			</div>
+			 -->
+			<div class="row" style= "margin-top: 20px">
+			  <div class="col-sm-6">
+			    <div class="card text-center" style="margin-left: 20px; margin-bottom: 20px; border-width: 5px">
+			      <div class="card-block">
+			        <h3 class="card-title">Minimum Delay</h3>
+					    <div ng-controller="BarCtrl">
+						<canvas id="bar1" class="chart chart-bar"
+						chart-data="min_delay" chart-labels="labels" chart-series="series1">
+						</canvas>
+					</div>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="col-sm-6">
+			    <div class="card text-center" style="margin-right: 20px; margin-bottom: 20px; border-width: 5px">
+			      <div class="card-block">
+			        <h3 class="card-title">Maximum Delay</h3>
+			        <div ng-controller="BarCtrl">
+				<canvas id="bar2" class="chart chart-bar"
+				chart-data="max_delay" chart-labels="labels" chart-series="series2">
+				</canvas>
+			</div>
+			</div>
+			    </div>
+			  </div>
+			  <div class="col-sm-6">
+			<div class="card text-center" style="margin-left: 20px; margin-bottom: 20px; border-width: 5px">
+			  <div class="card-header">
+			    Flight Distribution per Airlines
+			  </div>
+			  <div class="card-block">
+			    <h4 class="card-title">Total Number of Flights : 457013</h4>
+			 <div ng-controller="PieChartCtrl">
+					<canvas id="pie" class="chart chart-pie" chart-data="countPercent" chart-labels="labels" chart-options="options"></canvas> 
+				</div>
+			
+			  </div>
+			  <div class="card-footer text-muted" style= "color: #000;">
+			    Southwest Airlines operated most number of times with 98060 flights.
+			  </div>
+			</div>
+			</div>
+			</div>
+			
+
+
+
+
 		</div>
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
