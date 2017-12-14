@@ -5,8 +5,8 @@ app.controller('MainController', function($scope, $http) {
         $http.get(url).then(function(response){
             $scope.flightData = response.data.FindFlightResult.flights;
             for (i = 0; i < $scope.flightData.length; ++i) {
-            	$scope.flightData[i].segments[0].departure_delay = Math.floor(Math.random() * 100);
-            	$scope.flightData[i].segments[0].arrival_delay = Math.floor(Math.random() * 100);
+            	$scope.flightData[i].segments[0].departure_delay = Math.floor(Math.random() * 10) > 15 ? true : false;
+            	$scope.flightData[i].segments[0].arrival_delay = Math.floor(Math.random() * 10) > 15 ? true : false;
             }
         });
     }

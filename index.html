@@ -82,8 +82,8 @@
 							<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Departure Time</th>
 							<th class="font-weight-bold" style= "vertical-align: middle;"> Scheduled Arrival Time</th>
 							<th class="font-weight-bold" style= "vertical-align: middle;"> Status</th>
-							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Departure Delay(min)</th>
-							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Arrival Delay (min) </th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Departure Delay</th>
+							<th class="font-weight-bold" style= "vertical-align: middle;"> Expected Arrival Delay</th>
 							
 						</thead>
 						<!-- <tr flex="100" dir-paginate="company in details| orderBy:sortKey:reverse | filter:search | itemsPerPage:5"> -->
@@ -94,8 +94,8 @@
 							<td>{{ x.segments[0].filed_departure_time.date +" "+ x.segments[0].filed_departure_time.dow +" "+x.segments[0].filed_departure_time.time+" "+ x.segments[0].filed_departure_time.tz }}</td>
 							<td>{{ x.segments[0].estimated_arrival_time.date+" "+ x.segments[0].estimated_arrival_time.dow +" "+ x.segments[0].estimated_arrival_time.time+" "+ x.segments[0].estimated_arrival_time.tz }}</td>
 							<td>{{ x.segments[0].status }}</td>
-							<td>{{ x.segments[0].departure_delay }}</td>
-							<td> {{ x.segments[0].arrival_delay }} </td>
+							<td><a ng-show=x.segments[0].departure_delay style="color:red"> DELAY </a><a ng-show=!x.segments[0].departure_delay style="color:green"> ON-TIME </a></td>
+							<td><a ng-show=x.segments[0].arrival_delay style="color:red"> DELAY </a><a ng-show=!x.segments[0].arrival_delay style="color:green"> ON-TIME </a></td>
 						</tr>
 					</table>
 				</div>
