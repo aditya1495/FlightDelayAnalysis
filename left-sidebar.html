@@ -33,7 +33,7 @@
 					<ul>
 						<li style= "color: #000;"><a href="index.html">Home</a></li>
 						<li style= "color: #000;"><a href="left-sidebar.html">Statistics</a></li>
-						<li style= "color: #000;"><a href="right-sidebar.html">Delay Data</a></li>
+						<!-- <li style= "color: #000;"><a href="right-sidebar.html">Delay Data</a></li> -->
 						<li style= "color: #000;"><a href="no-sidebar.html">Admin</a></li>
 					</ul>
 				</nav>
@@ -75,21 +75,34 @@
 			    Flight Distribution per Airlines
 			  </div>
 			  <div class="card-block">
-			    <h4 class="card-title">Total Number of Flights : 457013</h4>
+			    <h4 class="card-title">Total Number of Flights : 3119091</h4>
 			 <div ng-controller="PieChartCtrl">
 					<canvas id="pie" class="chart chart-pie" chart-data="countPercent" chart-labels="labels" chart-options="options"></canvas> 
 				</div>
 			
 			  </div>
 			  <div class="card-footer text-muted" style= "color: #000;">
-			    Southwest Airlines operated most number of times with 98060 flights.
+			    Southwest Airlines operated most number of times with 686420 flights.
 			  </div>
 			</div>
 			</div>
-			</div>
 			
-
-
+			
+			<div class="col-sm-6">
+			    <div class="card text-center" style="margin-right: 20px; margin-bottom: 20px; border-width: 5px">
+			  <div class="card-header">
+			    Mean Delay Distribution
+			  </div>
+			  <div class="card-block">
+			    <h4 class="card-title"></h4>
+			 <img class="" src="images/newplot.png" style = "width: 100%">
+			  </div>
+			  <div class="card-footer text-muted" style= "color: #000;">
+			    Frontier Airlines has max mean delays
+			  </div>
+			</div>
+			  </div>
+			</div>
 
 
 		</div>

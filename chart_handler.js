@@ -37,7 +37,7 @@ app.controller("PieChartCtrl", function($scope){
     $scope.countPercent = [];
 
   for (i = 0; i < diffForm.length; ++i) {
-    $scope.countPercent.push(diffForm[i].count);
+    $scope.countPercent.push((diffForm[i].count)*7);
   }
   
 });
