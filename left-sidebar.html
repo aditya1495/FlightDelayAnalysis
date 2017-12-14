@@ -33,7 +33,7 @@
 					<ul>
 						<li style= "color: #000;"><a href="index.html">Home</a></li>
 						<li style= "color: #000;"><a href="left-sidebar.html">Statistics</a></li>
-						<li style= "color: #000;"><a href="right-sidebar.html">Delay Data</a></li>
+						<!-- <li style= "color: #000;"><a href="right-sidebar.html">Delay Data</a></li> -->
 						<li style= "color: #000;"><a href="no-sidebar.html">Admin</a></li>
 					</ul>
 				</nav>
@@ -75,24 +75,34 @@
 			    Flight Distribution per Airlines
 			  </div>
 			  <div class="card-block">
-			    <h4 class="card-title">Total Number of Flights : 457013</h4>
+			    <h4 class="card-title">Total Number of Flights : 3119091</h4>
 			 <div ng-controller="PieChartCtrl">
 					<canvas id="pie" class="chart chart-pie" chart-data="countPercent" chart-labels="labels" chart-options="options"></canvas> 
 				</div>
 			
 			  </div>
 			  <div class="card-footer text-muted" style= "color: #000;">
-			    Southwest Airlines operated most number of times with 98060 flights.
+			    Southwest Airlines operated most number of times with 686420 flights.
 			  </div>
 			</div>
 			</div>
-			</div>
 			
-		<div>
-    <a href="https://plot.ly/~sha256/6/?share_key=LhEMWViV7V0xgQ2dBi6kVG" target="_blank" title="facet - scattergl" style="display: block; text-align: center;"><img src="https://plot.ly/~sha256/6.png?share_key=LhEMWViV7V0xgQ2dBi6kVG" alt="facet - scattergl" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="sha256:6" sharekey-plotly="LhEMWViV7V0xgQ2dBi6kVG" src="https://plot.ly/embed.js" async></script>
-</div>
-
+			
+			<div class="col-sm-6">
+			    <div class="card text-center" style="margin-right: 20px; margin-bottom: 20px; border-width: 5px">
+			  <div class="card-header">
+			    Mean Delay Distribution
+			  </div>
+			  <div class="card-block">
+			    <h4 class="card-title"></h4>
+			 <img class="" src="images/newplot.png" style = "width: 100%">
+			  </div>
+			  <div class="card-footer text-muted" style= "color: #000;">
+			    Frontier Airlines has max mean delays
+			  </div>
+			</div>
+			  </div>
+			</div>
 
 
 		</div>
