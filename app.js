@@ -4,10 +4,10 @@ app.controller('MainController', function($scope, $http) {
         var url = "http://127.0.0.1:7799/flightFetch?origin=" + $scope.source + "&destination=" + $scope.destination;
         $http.get(url).then(function(response){
             $scope.flightData = response.data.FindFlightResult.flights;
-            for (i = 0; i < $scope.flightData.length; ++i) {
-            	$scope.flightData[i].segments[0].departure_delay = Math.floor(Math.random() * 10) > 15 ? true : false;
-            	$scope.flightData[i].segments[0].arrival_delay = Math.floor(Math.random() * 10) > 15 ? true : false;
-            }
+            // for (i = 0; i < $scope.flightData.length; ++i) {
+            // 	$scope.flightData[i].segments[0].departure_delay = Math.floor(Math.random() * 10) > 15 ? true : false;
+            // 	$scope.flightData[i].segments[0].arrival_delay = Math.floor(Math.random() * 10) > 15 ? true : false;
+            // }
         });
     }
 

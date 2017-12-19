@@ -2,7 +2,7 @@ import requests
 import json
 from flask import Flask, request
 from json import dumps
-from flask.ext.jsonpify import jsonify
+#from flask.ext.jsonpify import jsonify
 from flask_cors import CORS
 
 username = "aditya1495"
@@ -20,25 +20,25 @@ def getLiveFeed():
     print (response.json());
 
     if response.status_code == 200:
-        return jsonify(response.json())
+        return json.dumps(response.json())
     else:
-        return jsonify({'data': ''})
+        return json.dumps({'data': ''})
 
 @app.route('/flightFetch', methods=['GET'])
 def findFlights():
     origin = request.args.get('origin')
     destination = request.args.get('destination')
     
-    payload = {'howMany':'15', 'origin' : origin, 'destination' : destination, 'type' : 'nonstop'}
+    payload = {'howMany':'30', 'origin' : origin, 'destination' : destination, 'type' : 'nonstop'}
     response = requests.get(fxmlUrl + "FindFlight", 
         params=payload, auth=(username, apiKey))
     
     print (json.dumps(response.json(), indent=2));
 
     if response.status_code == 200:
-        return jsonify(response.json())
+        return json.dumps(response.json())
     else:
-        return jsonify({'data': ''})
+        return json.dumps({'data': ''})
 
 @app.route('/getFlightInfoStatus', methods=['GET'])
 def getFlightInfoStatus():
@@ -50,9 +50,9 @@ def getFlightInfoStatus():
     print (response.json());
 
     if response.status_code == 200:
-        return jsonify(response.json())
+        return json.dumps(response.json())
     else:
-        return jsonify({'data': ''})
+        return json.dumps({'data': ''})
     
 if __name__ == '__main__':
     app.run(port=7799)
