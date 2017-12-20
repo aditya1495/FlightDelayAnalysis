@@ -17,7 +17,7 @@ fxmlUrl = "https://flightxml.flightaware.com/json/FlightXML3/"
 app = Flask(__name__)
 CORS(app)
 
-pkl_folder = '/home/hrishi/Sem1/BigData/flightdelay/'
+pkl_folder = 'saved_models/'
 
 @app.route('/getNewDelays', methods=['GET'])
 def getLiveFeed():
@@ -43,7 +43,6 @@ def findFlights():
     df_al = df_al.reset_index()
     airline_list = np.sort(np.array(list(df_al['IATA_CODE'])))
     flightinfo = response.json()['FindFlightResult']['flights']
-    pkl_folder = "/home/hrishi/Sem1/BigData/flightdelay/"
     day_dict = {'Monday':1, 'Tuesday':2, 'Wednesday':3, 'Thursday':4, 'Friday':5, 'Saturday':6, 'Sunday':7}
     res = response.json()
     for i,fl in enumerate(flightinfo):
